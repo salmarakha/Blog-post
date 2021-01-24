@@ -8,7 +8,10 @@ const { getHomeBlogs } = require('./controllers/blog');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/blog-post', { useNewUrlParser: true });
+const { MONGODB_URI } = process.env;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+
+//mongoose.connect('mongodb://localhost:27017/blog-post', { useNewUrlParser: true });
 
 app.use(express.json());
 
