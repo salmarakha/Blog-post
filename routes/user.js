@@ -23,6 +23,7 @@ router.get('/profile', auth, async (req, res, next) => {
     }
 });
 
+// search for users by id
 router.get('/:id', async (req, res, next) => {
     const id = req.params.id;
     try {
@@ -79,7 +80,7 @@ router.patch('/unfollow/:id', auth, async (req, res, next) => {
 });
 
 router.patch('/', auth, async (req, res, next) => {
-    const { body, user: { id } } = req;
+    const { user: { id }, body } = req;
     try {
         const editedUser = await edit(id, body);
         res.json({ message: "user was edited successfully", user: editedUser });

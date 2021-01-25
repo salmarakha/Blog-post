@@ -34,11 +34,15 @@ const postBlog = async (blog) => {
 };
 
 const searchAuthor = (key) => {
-    return Blog.find({ author: key }).exec();
+    try{
+        return Blog.find({ author: key }).exec();
+    } catch(e) {
+        next(e)
+    }
 }
 
 const search = (key) => {
-return Blog.find({ $or: [{ tags: new RegExp(key, 'i') }, { title: new RegExp(key, 'i') }] }).exec();
+    return Blog.find({ $or: [{ tags: new RegExp(key, 'i') }, { title: new RegExp(key, 'i') }] }).exec();
 }
 
 const edit = async (id, BlogToEdit) => await Blog.findByIdAndUpdate(id, BlogToEdit, { new: true }).exec();
