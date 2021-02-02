@@ -4,7 +4,9 @@ const userRoutes = require('./routes/user');
 const blogRoutes = require('./routes/blog');
 const { auth } = require('./middlewares/auth');
 const { getHomeBlogs } = require('./controllers/blog');
+const cors = require('cors');
 
+app.use(cors());
 
 const app = express();
 
