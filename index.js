@@ -6,9 +6,9 @@ const { auth } = require('./middlewares/auth');
 const { getHomeBlogs } = require('./controllers/blog');
 const cors = require('cors');
 
-app.use(cors());
-
 const app = express();
+
+app.use(cors());
 
 const { MONGODB_URI } = process.env;
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
