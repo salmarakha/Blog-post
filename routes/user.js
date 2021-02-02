@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const { getAll, getById, follow, unfollow, create, login, edit, deleteUser } = require('../controllers/user');
 const { auth } = require('../middlewares/auth');
+const cors = require('cors');
+
+router.use(cors());
 
 router.get('/', async (req, res, next) => {
     try {

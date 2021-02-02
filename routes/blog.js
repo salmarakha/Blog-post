@@ -4,6 +4,9 @@ const { getById, getUserBlogs, postBlog, search, searchAuthor, edit, deleteBlog 
 const { ownsBlog, ownsBlogs } = require('../middlewares/auth');
 const multer = require('multer');
 const path = require('path');
+const cors = require('cors');
+
+router.use(cors());
 
 
 router.get('/', ownsBlogs, async (req, res, next) => {
