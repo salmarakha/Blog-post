@@ -50,7 +50,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.post('/login', async (req, res, next) => {
-    const body = req.body;
+    const { body } = req;
     console.log(body)
     try {
         const user = await login(body);

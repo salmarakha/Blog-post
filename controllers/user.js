@@ -19,7 +19,7 @@ const login = async ({username, password}) => {
     console.log(username);
     const user = await User.findOne({username}).exec();
     console.log(user);
-    const valid = user.validatePassword(password);
+    const valid = await user.validatePassword(password);
     if (!valid) throw (new Error('invalid login'));
     const token = await asyncSign({
         username: user.username,
