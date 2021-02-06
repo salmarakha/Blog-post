@@ -19,7 +19,7 @@ router.get('/', ownsBlogs, async (req, res, next) => {
     }
 });
 
-router.get('/:id', ownsBlog, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
     try {
         const blog = await getById(id);
