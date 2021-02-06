@@ -29,8 +29,8 @@ const postBlog = async (blog) => {
     let userBlogs = user.blogs;
     userBlogs.push(blog._id);
     user.blogs = userBlogs;
-    await User.findByIdAndUpdate(blog.author, user, { new: true }).exec();
-    return Blog.create(blog);
+    user = await User.findByIdAndUpdate(blog.author, user, { new: true }).exec();
+    return await Blog.create(blog);
 };
 
 const searchAuthor = (key) => {

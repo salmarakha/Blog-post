@@ -39,16 +39,18 @@ userSchema.pre('save', function (next) {
 });
 
 userSchema.methods.validatePassword = function (password) {
+    console.log(password);
+    console.log(this.password);
     return bcrypt.compareSync(password, this.password);
 }
 
-userSchema.pre('findOneAndUpdate', function preSave(next) {
-    if (!this._update.password) {
-        return;
-    }
-    this._update.password = bcrypt.hashSync(this._update.password, 8);
-    next();
-});
+// userSchema.pre('findOneAndUpdate', function (next) {
+//     if (!this._update.password) {
+//         return;
+//     }
+//     this._update.password = bcrypt.hashSync(this._update.password, 8);
+//     next();
+// });
 
 const User = mongoose.model('User', userSchema);
 
