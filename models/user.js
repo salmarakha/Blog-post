@@ -11,6 +11,10 @@ const userSchema = new Schema({
         unique: true
     },
     password: String,
+    email: {
+        type: String,
+        required: true
+    },
     blogs: [{
         type: Number,
         ref: 'Blog',

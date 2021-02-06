@@ -8,7 +8,6 @@ const cors = require('cors');
 
 router.use(cors());
 
-
 router.get('/', ownsBlogs, async (req, res, next) => {
     console.log(req.user);
     try {
@@ -51,15 +50,51 @@ router.get('/search/:key', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'images');
+    },
+
+
+    filename: function (req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
+    }
+});
+
+const upload = multer({ storage: storage });
+
+
+router.post('/', upload.single("imgURL"), async (req, res, next) => {
     let { body, user: { id } } = req;
+    const _file = req.file.filename;
     try {
-        const blog = await postBlog({ ...body, author: id });
+        const blog = await postBlog({ ...body, imgURL: _file, author: id });
         res.json(blog);
     } catch (e) {
         next(e);
     }
 });
+
+// router.post('/', async (req, res, next) => {
+//     let { body, user: { id } } = req;
+//     try {
+//         const blog = await postBlog({ ...body, author: id });
+//         res.json(blog);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
+
+// router.post('/add', upload.single("photo"), async (req, res, next) => {
+//     const { body, user: { id } } = req;
+//     const _file = req.file.filename;
+//     try {
+//         const blog = await create({ ...body, photo: _file, auther: id });
+//         res.json(blog);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 router.patch('/:id', ownsBlog, async (req, res, next) => {
     const { id } = req.params;
