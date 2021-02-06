@@ -19,7 +19,7 @@ const getById = async (id) => await Blog.findById(id).exec();
 
 const getHomeBlogs = () => {
     const today = new Date();
-    return Blog.find({postDate: {$gte:"2021-01-23 01:00:00.000Z"}}).populate('author').exec();
+    return Blog.find().populate('author').exec();
 }
 
 const postBlog = async (blog) => {
