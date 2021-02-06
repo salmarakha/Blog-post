@@ -25,7 +25,7 @@ const getHomeBlogs = () => {
 const postBlog = async (blog) => {
     const blogs = await getAll();
     blog._id = (blogs.length) ? blogs[blogs.length - 1]._id + 1 : 1;
-    const user = await User.findById(blog.author).exec();
+    let user = await User.findById(blog.author).exec();
     let userBlogs = user.blogs;
     userBlogs.push(blog._id);
     user.blogs = userBlogs;
