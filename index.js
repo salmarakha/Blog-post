@@ -10,10 +10,10 @@ const app = express();
 
 app.use(cors());
 
-// const { MONGODB_URI } = process.env;
-// mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+const { MONGODB_URI } = process.env;
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
-mongoose.connect('mongodb://localhost:27017/blog-post', { useNewUrlParser: true });
+//mongoose.connect('mongodb://localhost:27017/blog-post', { useNewUrlParser: true });
 
 app.use(express.json());
 
