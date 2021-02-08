@@ -28,7 +28,6 @@ app.get('/', async (req, res, next) => {
         next(e);
     }
 });
-app.use('/blogdetail', auth, commentRoutes);
 
 
 const { PORT = 3000 } = process.env;
