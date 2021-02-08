@@ -20,7 +20,6 @@ app.use(express.json());
 app.use('/images', express.static('images'));
 app.use('/users', userRoutes);
 app.use('/blogs', auth, blogRoutes);
-app.use('/blogdetail', auth, commentRoutes);
 app.get('/', async (req, res, next) => {
     try {
         const blogs = await getHomeBlogs();
@@ -29,6 +28,7 @@ app.get('/', async (req, res, next) => {
         next(e);
     }
 });
+app.use('/blogdetail', auth, commentRoutes);
 
 
 const { PORT = 3000 } = process.env;
