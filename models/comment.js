@@ -1,26 +1,12 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const blogSchema = new Schema({
+const commentSchema = new Schema({
     _id: Number,
-    title: {
-        type: String,
-        minlength: 2,
-        maxlength: 150,
-        required: true,
-    },
     content: {
         type: String,
         required: true,
     },
-    tags: {
-        type: [String],
-        maxLength: 10,
-    },
-    comments: [{
-        type: Number,
-        ref: 'Comment',
-    }],
     imgURL: {
         type: String,
         default: undefined,
@@ -33,9 +19,13 @@ const blogSchema = new Schema({
     postDate: {
         type: Date,
         default: new Date(),
+    },
+    blogId: {
+        type: Number,
+        ref: 'Blog',
     }
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Comment = mongoose.model('Comment', commentSchema);
 
-module.exports = Blog;
+module.exports = Comment;
