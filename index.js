@@ -16,7 +16,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect('mongodb://localhost:27017/blog-post', { useNewUrlParser: true });
 
 app.use(express.json());
-app.use('/images/', express.static('images'));
+app.use('/images', express.static('images'));
 app.use('/users', userRoutes);
 app.use('/blogs', auth, blogRoutes);
 app.get('/', async (req, res, next) => {
