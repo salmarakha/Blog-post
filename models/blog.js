@@ -16,9 +16,11 @@ const blogSchema = new Schema({
     tags: {
         type: [String],
         maxLength: 10,
-        default: undefined,
     },
+    comments: {},
     imgURL: {
+        // data: Buffer, 
+        // contentType: String,
         type: String,
         default: undefined,
     },
