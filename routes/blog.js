@@ -18,7 +18,7 @@ router.get('/', ownsBlogs, async (req, res, next) => {
     }
 });
 
-router.get('/:id/:img?', async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     console.log(req.params);
     const { id } = req.params;
     try {
