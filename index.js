@@ -19,7 +19,6 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 app.use(express.json());
 app.use('/images', express.static('images'));
 app.use('/users', userRoutes);
-app.use('/blogdetail', auth, commentRoutes);
 app.use('/blogs', auth, blogRoutes);
 app.use('/blogdetail', auth, commentRoutes);
 app.get('/', async (req, res, next) => {
