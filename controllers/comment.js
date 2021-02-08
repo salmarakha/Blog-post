@@ -2,9 +2,9 @@ const Comment = require('../models/Comment');
 const Blog = require('../models/blog');
 
 
-// const getAll = () => {
-//     return Comment.find().exec()
-// }
+const getAll = () => {
+    return Comment.find().exec()
+}
 
 const addComment = async (comment) => {
     const comments = await getAll();
