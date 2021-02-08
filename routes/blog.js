@@ -23,8 +23,8 @@ router.get('/:id', async (req, res, next) => {
     const { id } = req.params;
     try {
         const blog = await getById(id);
-        req.route.path += ('/' + blog.imgURL);
-        console.log(req.route.path);
+        //req.route.path += ('/' + blog.imgURL);
+        //console.log(req.route.path);
         res.json(blog);
     } catch (e) {
         next(e);
