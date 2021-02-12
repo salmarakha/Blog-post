@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Blog = require('../models/blog');
 const jwt = require('jsonwebtoken');
 const { promisify } = require('util');
 
@@ -55,8 +56,11 @@ const unfollow = async (id, user) => {
 
 const edit = (id, content) => User.findByIdAndUpdate(id, content, { new: true }).exec();
 
-const deleteUser = (id) => User.findByIdAndDelete(id).exec();
-
+const deleteUser = async (user) => {
+    console.log(user);
+    await Blog.deleteMany({ _id: { $in: user.blogs } });
+    return User.findByIdAndDelete(user._id).exec();
+}
 module.exports = {
     getAll,
     getById,

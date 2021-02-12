@@ -93,11 +93,24 @@ router.patch('/', auth, async (req, res, next) => {
 });
 
 router.delete('/', auth, async (req, res, next) => {
-    let { user: { id } } = req;
+    let { user } = req;
     try {
         debugger
-        const deletedUser = await deleteUser(id);
+        const deletedUser = await deleteUser(user);
         res.json({ message: "user deleted", user: deletedUser });
+    } catch (e) {
+        next(e);
+    }
+});
+
+router.delete('/logout', auth, async(req, res, next) => {
+    try{
+        console.log(req.headers);
+        if (!req.headers.authorization)
+            throw new Error("User is already logged out");
+        req.headers.authorization = undefined;
+        console.log(req.headers);
+        res.json({ message: "user is logged out"});
     } catch (e) {
         next(e);
     }

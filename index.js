@@ -35,6 +35,9 @@ const { PORT = 3000 } = process.env;
 
 app.use((err, req, res, next) => {
     console.error(err.message);
+    if (err.message == "User is already logged out") {
+        res.status(422).json({ Error: "User is already logged out!" });
+    }
     if (err.message == 'user not found') {
         res.status(422).json({ Error: "User not found!" });
     }
