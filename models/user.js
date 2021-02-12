@@ -13,7 +13,9 @@ const userSchema = new Schema({
     password: String,
     email: {
         type: String,
-        required: true
+        required: true,
+        lowercase: true,
+        unique: true,
     },
     blogs: [{
         type: Number,
