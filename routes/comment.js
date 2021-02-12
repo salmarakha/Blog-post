@@ -16,7 +16,7 @@ router.use(cors());
 //     }
 // });
 
-router.post('/:blogId/comment', (req, res, next) => {
+router.post('/:blogId/comment', async (req, res, next) => {
     // console.log(req.params);
     // console.log(req.user);
     // console.log(req.body);
@@ -25,8 +25,9 @@ router.post('/:blogId/comment', (req, res, next) => {
     const { blogId } = req.params;
     console.log(blogId);
     try {
-        const comment = addComment({...content, author: userId, blogId: Number(blogId)});
-        res.json({"Response": "Comment Added!", comment: comment});
+        const comment = await addComment({...content, author: userId, blogId: Number(blogId)});
+        console.log(comment);
+        res.json({message: "Comment Added!", comment: comment});
     } catch (e) {
         next(e);
     }
