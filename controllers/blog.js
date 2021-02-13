@@ -7,11 +7,7 @@ const getAll = () => {
 
 const getUserBlogs = async (blogs) => {
     console.log(blogs[0]);
-    let userBlogs = [];
-    for (let i = 0; i < blogs.length; i++) {
-        let blog = await Blog.findById(blogs[i]).exec()
-        userBlogs.push(blog)
-    }
+    const userBlogs = await Blog.find({ '_id': { $in: blogs} }).sort({postDate: 'desc'}).exec()
     return userBlogs;
 }
 
@@ -19,7 +15,7 @@ const getById = async (id) => await Blog.findById(id).populate({path: 'comments'
 
 const getHomeBlogs = () => {
     const today = new Date();
-    return Blog.find({postDate: {$gte:"2021-01-23 01:00:00.000Z", $lte: today}}).populate('author').exec();
+    return Blog.find().sort({postDate: 'desc'}).populate('author').exec();
 }
 
 const postBlog = async (blog) => {
