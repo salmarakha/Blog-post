@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv');
+const path = require('path')
+require('dotenv').config({ path: './.env' });
 const userRoutes = require('./routes/user');
 const blogRoutes = require('./routes/blog');
 const commentRoutes = require('./routes/comment');
 const { auth } = require('./middlewares/auth');
 const { getHomeBlogs } = require('./controllers/blog');
 const cors = require('cors');
-dotenv.config();
 
 const app = express();
 
@@ -36,7 +36,7 @@ app.get('/', async (req, res, next) => {
 const { PORT = 3000 } = process.env;
 
 app.use((err, req, res, next) => {
-    console.error(err.message);
+    console.error(err);
     if (err.message == "User is already logged out") {
         res.status(422).json({ Error: "User is already logged out!" });
     }
