@@ -68,27 +68,18 @@ router.get('/search/:key', async (req, res, next) => {
 
 // const upload = multer({ storage: storage });
 
+
 router.post('/', upload.single("imgURL"), async (req, res, next) => {
     let { body, user: { id } } = req;
-    const _file = req.file.filename;
+    //const _file = req.file.filename;
     try {
-        router.post('/', upload.single("imgURL"), async (req, res, next) => {
-        let { body, user: { id } } = req;
-        //const _file = req.file.filename;
-        try {
-            const result = await cloudinary.uploader.upload(req.file.path);
-            const blog = await postBlog({ ...body, imgURL: result.secure_url, cloudinary_id: result.public_id, author: id });
-            res.json(blog);
-        } catch (e) {
-            next(e);
-        }
+        const result = await cloudinary.uploader.upload(req.file.path);
+        const blog = await postBlog({ ...body, imgURL: result.secure_url, cloudinary_id: result.public_id, author: id });
+        res.json(blog);
+    } catch (e) {
+        next(e);
+    }
 });
-//         const blog = await postBlog({ ...body, imgURL: _file, author: id });
-//         res.json(blog);
-//     } catch (e) {
-//         next(e);
-//     }
-// });
 
 
 // router.post('/', upload.single("imgURL"), async (req, res, next) => {
