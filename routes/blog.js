@@ -3,6 +3,7 @@ const router = express.Router();
 const { getById, getUserBlogs, postBlog, search, searchAuthor, edit, deleteBlog } = require('../controllers/blog');
 const { ownsBlog, ownsBlogs } = require('../middlewares/auth');
 const multer = require('multer');
+const upload = require("../utils/multer");
 const cloudinary = require("../utils/cloudinary");
 const path = require('path');
 const cors = require('cors');
@@ -54,18 +55,18 @@ router.get('/search/:key', async (req, res, next) => {
     }
 });
 
-const storage = multer.diskStorage({
-    destination: function (req, file, cb) {
-        cb(null, 'images');
-    },
+// const storage = multer.diskStorage({
+//     destination: function (req, file, cb) {
+//         cb(null, 'images');
+//     },
 
 
-    filename: function (req, file, cb) {
-        cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
-    }
-});
+//     filename: function (req, file, cb) {
+//         cb(null, file.originalname + '-' + Date.now() + path.extname(file.originalname));
+//     }
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ storage: storage });
 
 router.post('/', upload.single("imgURL"), async (req, res, next) => {
     let { body, user: { id } } = req;
