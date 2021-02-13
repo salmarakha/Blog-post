@@ -25,6 +25,9 @@ const blogSchema = new Schema({
         type: String,
         default: undefined,
     },
+    cloudinary_id: {
+        type: String,
+    },
     author: {
         type: Number,
         ref: 'User',

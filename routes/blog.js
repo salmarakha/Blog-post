@@ -3,6 +3,7 @@ const router = express.Router();
 const { getById, getUserBlogs, postBlog, search, searchAuthor, edit, deleteBlog } = require('../controllers/blog');
 const { ownsBlog, ownsBlogs } = require('../middlewares/auth');
 const multer = require('multer');
+const cloudinary = require("../utils/cloudinary");
 const path = require('path');
 const cors = require('cors');
 
@@ -66,17 +67,39 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
 router.post('/', upload.single("imgURL"), async (req, res, next) => {
     let { body, user: { id } } = req;
     const _file = req.file.filename;
     try {
+        router.post('/', upload.single("imgURL"), async (req, res, next) => {
+        let { body, user: { id } } = req;
+        //const _file = req.file.filename;
+        try {
+            const result = await cloudinary.uploader.upload(req.file.path);
+            const blog = await postBlog({ ...body, imgURL: result.secure_url, cloudinary_id: result.public_id, author: id });
+            res.json(blog);
+        } catch (e) {
+            next(e);
+        }
+});
         const blog = await postBlog({ ...body, imgURL: _file, author: id });
         res.json(blog);
     } catch (e) {
         next(e);
     }
 });
+
+
+// router.post('/', upload.single("imgURL"), async (req, res, next) => {
+//     let { body, user: { id } } = req;
+//     const _file = req.file.filename;
+//     try {
+//         const blog = await postBlog({ ...body, imgURL: _file, author: id });
+//         res.json(blog);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 // router.post('/', async (req, res, next) => {
 //     let { body, user: { id } } = req;
@@ -115,6 +138,7 @@ router.delete('/:id', ownsBlog, async (req, res, next) => {
     const user = req.user;
     try {
         const deletedBlog = await deleteBlog(id, user);
+        await cloudinary.uploader.destroy(deletedBlog.cloudinary_id);
         res.json({ message: "Blog Deleted!", deleted: deletedBlog });
     } catch (e) {
         next(e);
