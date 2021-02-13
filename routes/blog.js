@@ -83,12 +83,12 @@ router.post('/', upload.single("imgURL"), async (req, res, next) => {
             next(e);
         }
 });
-        const blog = await postBlog({ ...body, imgURL: _file, author: id });
-        res.json(blog);
-    } catch (e) {
-        next(e);
-    }
-});
+//         const blog = await postBlog({ ...body, imgURL: _file, author: id });
+//         res.json(blog);
+//     } catch (e) {
+//         next(e);
+//     }
+// });
 
 
 // router.post('/', upload.single("imgURL"), async (req, res, next) => {
