@@ -11,7 +11,7 @@ const getUserBlogs = async (blogs) => {
     return userBlogs;
 }
 
-const getById = async (id) => await Blog.findById(id).populate({path: 'comments', populate: { path: 'author'}}).exec();
+const getById = async (id) => await Blog.findById(id).populate('author').populate({path: 'comments', populate: { path: 'author'}}).exec();
 
 const getHomeBlogs = () => {
     const today = new Date();
