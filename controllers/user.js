@@ -37,8 +37,9 @@ const follow = async (id, user) => {
     } else {
         throw new Error("Id invalid");
     }
-    const followedUser = await User.findById(id);
-    return followedUser;
+    //const followedUser = await User.findById(id);
+    //return followedUser;
+    return user;
 }
 
 const unfollow = async (id, user) => {
@@ -51,7 +52,8 @@ const unfollow = async (id, user) => {
         throw new Error("Id invalid");
     }
     const followedUser = await User.findById(id);
-    return followedUser;
+    // return followedUser;
+    return user;
 }
 
 const edit = (id, content) => User.findByIdAndUpdate(id, content, { new: true }).exec();
