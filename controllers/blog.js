@@ -7,7 +7,7 @@ const getAll = () => {
 
 const getUserBlogs = async (blogs) => {
     console.log(blogs[0]);
-    const userBlogs = await Blog.find({ '_id': { $in: blogs} }).sort({postDate: 'desc'}).exec()
+    const userBlogs = await Blog.find({ '_id': { $in: blogs} }).populate('author').sort({postDate: 'desc'}).exec()
     return userBlogs;
 }
 
