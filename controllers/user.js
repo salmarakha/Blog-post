@@ -18,7 +18,7 @@ const create = async (newUserInfo) => {
 
 const login = async ({username, password}) => {
     console.log(username);
-    const user = await User.findOne({username}).exec();
+    const user = await User.findOne({username}).populate('followers').populate('following').exec();
     console.log(user);
     const valid = await user.validatePassword(password);
     if (!valid) throw (new Error('invalid login'));
