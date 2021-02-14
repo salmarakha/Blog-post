@@ -32,28 +32,28 @@ const login = async ({username, password}) => {
 const follow = async (id, user) => {
     const loggedUserId = user.id;
     if (id != loggedUserId && !user.following.find(item => item == id)){
-        user = await User.updateOne({ _id: loggedUserId}, { $push : { following: id } } ,{new: true}).exec();
+        await User.updateOne({ _id: loggedUserId}, { $push : { following: id } } ,{new: true}).exec();
         await User.updateOne({ _id: id}, { $push: { followers: loggedUserId } }, { new: true }).exec();
     } else {
         throw new Error("Id invalid");
     }
     //const followedUser = await User.findById(id);
     //return followedUser;
-    return user;
+    return user = await User.findById(loggedUserId);
 }
 
 const unfollow = async (id, user) => {
     const loggedUserId = user.id;
     //const loggedUser = await User.findById(loggedUserId).exec();
     if (id != loggedUserId && user.following.find(item => item == id)){
-        user = await User.updateOne({ _id: loggedUserId}, { $pull : { following: id } } ,{new: true}).exec();
+        await User.updateOne({ _id: loggedUserId}, { $pull : { following: id } } ,{new: true}).exec();
         await User.updateOne({ _id: id}, { $pull: { followers: loggedUserId } }, { new: true }).exec();
     } else {
         throw new Error("Id invalid");
     }
     const followedUser = await User.findById(id);
     // return followedUser;
-    return user;
+    return user = await User.findById(loggedUserId);
 }
 
 const edit = (id, content) => User.findByIdAndUpdate(id, content, { new: true }).exec();
