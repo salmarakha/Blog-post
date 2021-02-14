@@ -39,7 +39,7 @@ const follow = async (id, user) => {
     }
     //const followedUser = await User.findById(id);
     //return followedUser;
-    return user = await User.findById(loggedUserId);
+    return user = await User.findById(loggedUserId).populate('followers').populate('following').exec();
 }
 
 const unfollow = async (id, user) => {
@@ -53,7 +53,7 @@ const unfollow = async (id, user) => {
     }
     const followedUser = await User.findById(id);
     // return followedUser;
-    return user = await User.findById(loggedUserId);
+    return user = await User.findById(loggedUserId).populate('followers').populate('following').exec();
 }
 
 const edit = (id, content) => User.findByIdAndUpdate(id, content, { new: true }).exec();
