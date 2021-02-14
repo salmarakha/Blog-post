@@ -65,7 +65,7 @@ router.patch('/follow/:id', auth, async (req, res, next) => {
     const { user } = req;
     try {
         const followedUser = await follow(id, user);
-        res.json({ message: "Followed a new user!", user: followedUser });
+        res.json(followedUser);
     } catch (e) {
         next(e);
     }
@@ -76,7 +76,7 @@ router.patch('/unfollow/:id', auth, async (req, res, next) => {
     const { user } = req;
     try {
         const followedUser = await unfollow(id, user);
-        res.json({ message: "Unfollowed user!", user: followedUser });
+        res.json(followedUser);
     } catch (e) {
         next(e);
     }
