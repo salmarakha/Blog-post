@@ -12,6 +12,7 @@ router.use(cors());
 
 router.get('/', ownsBlogs, async (req, res, next) => {
     console.log(req.user);
+    console.log("hello");
     try {
         const blogs = await getUserBlogs(req.user.blogs);
         res.json(blogs);
